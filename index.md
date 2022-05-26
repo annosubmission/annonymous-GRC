@@ -40,7 +40,7 @@ features, as well as attending over self yielding instance-specific features (Se
 
 #### Cached Attention with GRC (GRC-Attention)
 
-<img src="Fig/methods.jpg" alt="methods" width="1000"  class="center" />
+<img src="Fig/methods.jpg" alt="meth" width="1000"  class="center" />
 
 The illustration of proposed GRC-Attention in Cached Transformers. 
  
