@@ -69,6 +69,7 @@ We choose the middle layers of cached ViT-S, averaging the  outputs from self-at
 The corresponding results are denoting as $o_{self}$ and $o_{mem}$, respectively. 
 As $o_{self}$ and $o_{mem}$  are sequences of patches,  they are unflattened to $14 \times 14$ shape for better comparison.
 As shown, Features derived by the above two attentions are visually complementary.  
+
 In GRC-Attention, $o_{mem}$ is derived by attending over the proposed cache (GRC) containing compressive representations of historical samples, and thus being adept in recognizing **public** and frequently showing-up patches of this **class**. 
 While for $o_{self}$ from self-attention branch, it can focus on finding out more private and **characteristic** features of the input **instance**. 
 With above postulates, we can attempt to explain the regularity of $\sigma(\lambda^h)$: employing more $o_{mem}$ (larger $\sigma(\lambda^h)$ ) in former layers can help the network to distinguish this instance coarsely, and employing more $o_{self}$ (smaller $\sigma(\lambda^h)$) enable the model to make fine-grained decision.
