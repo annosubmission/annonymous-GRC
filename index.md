@@ -17,8 +17,7 @@ features, as well as attending over self yielding instance-specific features (Se
 
 
 #### Results
- We conduct extensive experiments on more than **ten** representative Transformer networks from both vision and language tasks, includ14 ing long range arena, image classification, object detection, instance segmentation,
- and machine translation. The results demonstrate that our approach significantly improves performance of recent Transformers. 
+ We conduct extensive experiments on more than **ten** representative Transformer networks from both vision and language tasks, including long range arena, image classification, object detection, instance segmentation, and machine translation. The results demonstrate that our approach significantly improves performance of recent Transformers. 
  
   
 
@@ -72,7 +71,7 @@ As $o_{self}$ and $o_{mem}$  are sequences of patches,  they are unflattened to 
 As shown, Features derived by the above two attentions are visually complementary.  
 In GRC-Attention, $o_{mem}$ is derived by attending over the proposed cache (GRC) containing compressive representations of historical samples, and thus being adept in recognizing **public** and frequently showing-up patches of this **class**. 
 While for $o_{self}$ from self-attention branch, it can focus on finding out more private and **characteristic** features of the input **instance**. 
-With above postulates, we can attempt to explain the regularity of $\sigma(\lambda^h)$ in Fig.\ref{fig:lam}: employing more $o_{mem}$ (larger $\sigma(\lambda^h)$ ) in former layers can help the network to distinguish this instance coarsely, and employing more $o_{self}$ (smaller $\sigma(\lambda^h)$) enable the model to make fine-grained decision.
+With above postulates, we can attempt to explain the regularity of $\sigma(\lambda^h)$: employing more $o_{mem}$ (larger $\sigma(\lambda^h)$ ) in former layers can help the network to distinguish this instance coarsely, and employing more $o_{self}$ (smaller $\sigma(\lambda^h)$) enable the model to make fine-grained decision.
 
 
 
