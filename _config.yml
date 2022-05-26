@@ -1,6 +1,4 @@
 theme: jekyll-theme-cayman
 
-<!-- MathJax -->
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+kramdown:
+  math_engine: mathjax
