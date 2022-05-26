@@ -40,7 +40,7 @@ features, as well as attending over self yielding instance-specific features (Se
 
 #### Cached Attention with GRC (GRC-Attention)
 
-<img src="Fig/methods.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/methods.jpg" alt="methods" width="1000"  class="center" />
 
 The illustration of proposed GRC-Attention in Cached Transformers. 
  
@@ -53,7 +53,7 @@ The illustration of proposed GRC-Attention in Cached Transformers.
 
 
 #### Significance of Cached Attention
-<img src="Fig/lam-line-x.png" alt="lam" width="1000"  class="center" />
+<img src="Fig/lam-line-x.jpg" alt="lam" width="1000"  class="center" />
 
 To verify that the above performance gains mainly come from attending over caches, we analyze the contribution of $o_{mem}$ by visualizing the learnable attention ratio $\sigma(\lambda^h)$. 
 Hence,  $\sigma(\lambda^h)$ can be used to represent the relative significance of $o_{mem}^h$ and $o_{self}^h$.
@@ -61,7 +61,7 @@ We observe that, for more than half of the layers,  $\sigma(\lambda^h)$ is large
 Besides, we also notice an interesting fact that the models always prefer more cached attention except for the last several layers.
 
 #### Roles of Cached Attention
-<img src="Fig/public.png" alt="pub" width="1000"  class="center" />
+<img src="Fig/public.jpg" alt="pub" width="1000"  class="center" />
 
 We investigate the function of GRC-Attention by visualizing their interior feature maps. 
 We choose the middle layers of cached ViT-S, averaging the  outputs from self-attention $o_{self}$ and cached attention ($o_{mem}$) across the head and channel dimension, and then normalizing them into $[0, 1]$. 
