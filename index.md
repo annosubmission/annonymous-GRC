@@ -65,7 +65,7 @@ Besides, we also notice an interesting fact that the models always prefer more c
 
 We investigate the function of GRC-Attention by visualizing their interior feature maps. 
 We choose the middle layers of cached ViT-S, averaging the  outputs from self-attention $o_{self}$ and cached attention ($o_{mem}$) across the head and channel dimension, and then normalizing them into $[0, 1]$. 
-The corresponding results are denoting as $\o_{self}$ and $\o_{mem}$, respectively. 
+The corresponding results are denoting as $o_{self}$ and $o_{mem}$, respectively. 
 As $o_{self}$ and $o_{mem}$  are sequences of patches,  they are unflattened to $14 \times 14$ shape for better comparison.
 As shown, Features derived by the above two attentions are visually complementary.  
 In GRC-Attention, $o_{mem}$ is derived by attending over the proposed cache (GRC) containing compressive representations of historical samples, and thus being adept in recognizing **public** and frequently showing-up patches of this **class**. 
