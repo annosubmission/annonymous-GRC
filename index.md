@@ -21,19 +21,19 @@ features, as well as attending over self yielding instance-specific features (Se
   
 
 ##### ImageNet Results
-<img src="Fig/img-results.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/img-results.png" alt="imgnet" width="1000"  class="center" />
 
 ##### COCO2017 Results (Mask R-CNN 1x)
-<img src="Fig/coco-results.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/coco-results.png" alt="coco" width="1000"  class="center" />
 
 ##### COCO2017 Results (RetinaNet 1x)
-<img src="Fig/coco-r-results.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/coco-r-results.png" alt="coco-r" width="1000"  class="center" />
 
 ##### LRA Results
-<img src="Fig/lra-results.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/lra-results.png" alt="lra" width="1000"  class="center" />
 
 ##### Machine Translation Results
-<img src="Fig/mt-results.png" alt="methods" width="1000"  class="center" />
+<img src="Fig/mt-results.png" alt="mt" width="1000"  class="center" />
 
 
 ## Methods
