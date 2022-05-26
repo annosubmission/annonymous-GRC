@@ -44,7 +44,7 @@ features, as well as attending over self yielding instance-specific features (Se
 
 The illustration of proposed GRC-Attention in Cached Transformers. 
  
-(a) Details of the updating process of Gated Recurrent Cache. The updated cache $C_t$ is derived based on  current tokens $\bar{X}_t$ and cache of last step $C_{t-1}$.  The reset gates $g_r$ reset the previous cache $C_{t-1}$ to reset cache $\Tilde{C}_{t}$, and the update gates $g_u$ controls the update intensity.  
+(a) Details of the updating process of Gated Recurrent Cache. The updated cache $C_t$ is derived based on  current tokens $X_t$ and cache of last step $C_{t-1}$.  The reset gates $g_r$ reset the previous cache $C_{t-1}$ to reset cache $\Tilde{C}_{t}$, and the update gates $g_u$ controls the update intensity.  
 
 (b) Overall pipeline of GRC-Attention. Inputs will attend over cache and themselves respectively, and the outputs are formulated as interpolation of the two attention results. 
 
@@ -65,8 +65,8 @@ Besides, we also notice an interesting fact that the models always prefer more c
 
 We investigate the function of GRC-Attention by visualizing their interior feature maps. 
 We choose the middle layers of cached ViT-S, averaging the  outputs from self-attention $o_{self}$ and cached attention ($o_{mem}$) across the head and channel dimension, and then normalizing them into $[0, 1]$. 
-The corresponding results are denoting as $\bar{o}_{self}$ and $\bar{o}_{mem}$, respectively. 
-As $\bar{o}_{self}$ and $\bar{o}_{mem}$  are sequences of patches,  they are unflattened to $14 \times 14$ shape for better comparison.
+The corresponding results are denoting as $\o_{self}$ and $\o_{mem}$, respectively. 
+As $o_{self}$ and $o_{mem}$  are sequences of patches,  they are unflattened to $14 \times 14$ shape for better comparison.
 As shown, Features derived by the above two attentions are visually complementary.  
 In GRC-Attention, $o_{mem}$ is derived by attending over the proposed cache (GRC) containing compressive representations of historical samples, and thus being adept in recognizing **public** and frequently showing-up patches of this **class**. 
 While for $o_{self}$ from self-attention branch, it can focus on finding out more private and **characteristic** features of the input **instance**. 
