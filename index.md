@@ -5,6 +5,6 @@ In this work, we propose a novel family of Transformer model, called Cached Tran
 
 ![featurens](ct-public.gif)
 
-<img src="ct-public.gif" alt="drawing" width="200"/>
+<img src="drawing.jpg" alt="drawing" width="1000"/>
 
 
