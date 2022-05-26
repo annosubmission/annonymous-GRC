@@ -44,7 +44,7 @@ features, as well as attending over self yielding instance-specific features (Se
 
 The illustration of proposed GRC-Attention in Cached Transformers. 
  
-(a) Details of the updating process of Gated Recurrent Cache. The updated cache $C_t$ is derived based on  current tokens $X_t$ and cache of last step $C_{t-1}$.  The reset gates $g_r$ reset the previous cache $C_{t-1}$ to reset cache $\Tilde{C}_{t}$, and the update gates $g_u$ controls the update intensity.  
+(a) Details of the updating process of Gated Recurrent Cache. The updated cache $C_t$ is derived based on  current tokens $X_t$ and cache of last step $C_{t-1}$.  The reset gates $g_r$ reset the previous cache $C_{t-1}$ to reset cache $C_t$, and the update gates $g_u$ controls the update intensity.  
 
 (b) Overall pipeline of GRC-Attention. Inputs will attend over cache and themselves respectively, and the outputs are formulated as interpolation of the two attention results. 
 
