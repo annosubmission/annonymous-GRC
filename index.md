@@ -3,6 +3,8 @@
 ## Intro
 In this work, we propose a novel family of Transformer model, called Cached Transformer, which has a gated recurrent caches (GRC), a lightweight and flexible widget enabling Transformers to access the historical knowledge.
 
-![featurens](ct-public.gif alt="drawing" width="200")
+![featurens](ct-public.gif)
+
+<img src="drawing.jpg" alt="drawing" width="200"/>
 
 
