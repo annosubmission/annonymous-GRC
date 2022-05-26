@@ -163,7 +163,7 @@ class Attention(nn.Module):
         return x
 
 class GRC_Self_Attention(nn.Module):
-    def __init__(self, dim, attention_func=nn.MultiheadAttention, tk_mem=None, cache_ratio=0.5, decoder_attn=True,
+    def __init__(self, dim, attention_func=nn.MultiheadAttention, gr_cache=None, cache_ratio=0.5, decoder_attn=True,
                  spatial_pos_emb=True
                  , cls_dim=1, **kwargs):
         super().__init__()
@@ -184,10 +184,10 @@ class GRC_Self_Attention(nn.Module):
             self.pos_emb = nn.Conv2d(dim, dim, kernel_size=3, groups=self.cache_dim, stride=1, padding=1)
 
         self.memory_length = None
-        if tk_mem is not None:
-            self.tk_mem = tk_mem
+        if gr_cache is not None:
+            self.gr_cache = gr_cache
         elif self.memory_length is not None:
-            self.register_buffer('tk_mem', torch.zeros((1, self.memory_length, self.cache_dim,)))
+            self.register_buffer('gr_cache', torch.zeros((1, self.memory_length, self.cache_dim,)))
 
     def forward(self, x,  **kwargs):
         B, T, C = x.shape
@@ -198,8 +198,8 @@ class GRC_Self_Attention(nn.Module):
             H = W = int((T - self.cls_dim) ** 0.5)
 
 
-        if not hasattr(self, 'tk_mem'):
-            self.register_buffer('tk_mem', torch.zeros((1,) + (x.shape[1], self.cache_dim)).to(x.device))
+        if not hasattr(self, 'gr_cache'):
+            self.register_buffer('gr_cache', torch.zeros((1,) + (x.shape[1], self.cache_dim)).to(x.device))
             self.mH = H
             self.mW = W
 
@@ -214,21 +214,21 @@ class GRC_Self_Attention(nn.Module):
 
         x_self = self.attn_self_func(x, kv=x, **kwargs).view(B, T, self.heads, -1)
 
-        tk_mem = self.tk_mem.to(x.device)
-        tk_mem_value = tk_mem.expand((x.shape[0], tk_mem.shape[1], tk_mem.shape[-1]))
+        gr_cache = self.gr_cache.to(x.device)
+        gr_cache_value = gr_cache.expand((x.shape[0], gr_cache.shape[1], gr_cache.shape[-1]))
 
         x_summary = x_self.view_as(x)[:, :, :self.cache_dim]
-        x_summary = f.interpolate(x_summary.transpose(1, 2), (self.tk_mem.shape[1])).transpose(1, 2)
-        reset_gate = f.sigmoid(self.linear_reset(torch.cat([tk_mem_value, x_summary], dim=-1)))
-        z_gate = f.sigmoid(self.linear_update(torch.cat([tk_mem_value, x_summary], dim=-1)))
-        tk_mem_add = reset_gate * tk_mem_value
-        tk_mem_add = self.Norm1(f.gelu(self.linear_add(torch.cat([tk_mem_add, x_summary], dim=-1))))
-        tk_mem_value = z_gate * tk_mem_add + (1 - z_gate) * tk_mem_value
+        x_summary = f.interpolate(x_summary.transpose(1, 2), (self.gr_cache.shape[1])).transpose(1, 2)
+        reset_gate = f.sigmoid(self.linear_reset(torch.cat([gr_cache_value, x_summary], dim=-1)))
+        z_gate = f.sigmoid(self.linear_update(torch.cat([gr_cache_value, x_summary], dim=-1)))
+        gr_cache_add = reset_gate * gr_cache_value
+        gr_cache_add = self.Norm1(f.gelu(self.linear_add(torch.cat([gr_cache_add, x_summary], dim=-1))))
+        gr_cache_value = z_gate * gr_cache_add + (1 - z_gate) * gr_cache_value
 
         if self.training:
-            self.tk_mem.data = tk_mem_value.mean(dim=0, keepdims=True)
+            self.gr_cache.data = gr_cache_value.mean(dim=0, keepdims=True)
 
-        x_mem = self.attn_mem(x[:, :, :self.cache_dim], tk_mem_value).view(B, T, self.heads, -1)
+        x_mem = self.attn_mem(x[:, :, :self.cache_dim], gr_cache_value).view(B, T, self.heads, -1)
         alpha = self.lam.sigmoid().view(1, 1, -1, 1)
 
         return (alpha * torch.cat([x_mem, torch.zeros(B, T, self.heads, (C - self.cache_dim) // self.heads).to(x.device)],
